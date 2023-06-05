@@ -1,12 +1,12 @@
-import math
-
-import xlrd, statistics as st
-import wget
-
-# url = 'https://stepik.org/media/attachments/lesson/245290/trekking2.xlsx'
-# wget.download(url)
+import xlrd, math
 
 wb = xlrd.open_workbook('trekking2.xlsx')
+url = 'https://stepik.org/media/attachments/lesson/245290/trekking2.xlsx'
+
+
+def download_file():
+    import wget
+    wget.download(url)
 
 
 def replace(row):
@@ -30,7 +30,7 @@ def get_result(table, layout):
         f += table[item[0]][2] * item[1] / 100
         c += table[item[0]][3] * item[1] / 100
 
-    return list(map(lambda x: str(math.floor(x)) , [cal, p, f, c]))
+    return list(map(lambda x: str(math.floor(x)), [cal, p, f, c]))
 
 
 print(' '.join(get_result(get_table(wb.sheet_by_index(0)), get_layout(wb.sheet_by_index(1)))))
