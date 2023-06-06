@@ -9,17 +9,23 @@ def download_file(url):
     wget.download(url)
 
 
+def count_string(nodes, string):
+    return len(list(filter(lambda x: string in x, nodes)))
+
+
+def count_no_string(nodes, string):
+    return len(list(filter(lambda x: string not in x, nodes)))
+
+
+def print_result(parsed_xml):
+    print(count_string(parsed_xml['osm']['node'], 'tag'),
+          count_no_string(parsed_xml['osm']['node'], 'tag'))
+
+
 def run():
     with open('map1.osm', 'r', encoding='utf8') as fin:
         xml = fin.read()
-
-    parsedxml = xmltodict.parse(xml)
-    count = 0
-
-    for node in parsedxml['osm']['node']:
-        if 'tag' in node:
-            count += 1
-    print(count, len(parsedxml['osm']['node']) - count)
+    print_result(xmltodict.parse(xml))
 
 
 run()
