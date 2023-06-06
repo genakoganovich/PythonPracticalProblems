@@ -9,9 +9,8 @@ def download_file(url):
     wget.download(url)
 
 
-fin = open('map1.osm', 'r', encoding='utf8')
-xml = fin.read()
-fin.close()
+with open('map1.osm', 'r', encoding='utf8') as fin:
+    xml = fin.read()
 
 parsedxml = xmltodict.parse(xml)
 print(parsedxml['osm']['node'][100]['@id'])
